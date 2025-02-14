@@ -11,6 +11,15 @@
 git clone https://github.com/TatianaSharova/urRent.git
 ```
 
+Создать и активировать виртуальное окружение:
+```
+poetry install
+poetry env activate
+source .venv/Scripts/activate
+```
+poetry show - посмотреть зависимости         
+poetry add --dev flake8-pyproject - добавить ...
+
                                                       
 **Документация:**                                                               
 -----------

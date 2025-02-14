@@ -1,0 +1,37 @@
+[project]
+name = "urRent"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Tatiana Sharova"}
+]
+packages = [{ include = "src" }]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi (==0.115.8)",
+    "uvicorn (==0.34.0)",
+    "asyncpg (==0.30.0)",
+    "python-dotenv (==1.0.1)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.1.1"
+isort = "^6.0.0"
+flake8-pyproject = "^1.2.3"
+
+[tool.isort]
+known_first_party = ["src"]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+
+
+[tool.flake8]
+max-line-length = 79
+exclude = [".git", "env", ".venv", "__pycache__", "migrations", "tests/*"]
+
+

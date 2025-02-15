@@ -13,7 +13,7 @@ git clone https://github.com/TatianaSharova/urRent.git
 
 Создать и активировать виртуальное окружение:
 ```
-poetry install
+poetry install --no-root
 poetry env activate
 source .venv/Scripts/activate
 ```

@@ -18,7 +18,7 @@ poetry env activate
 source .venv/Scripts/activate
 ```
 poetry show - посмотреть зависимости         
-poetry add --dev flake8-pyproject - добавить ...
+poetry add --dev flake8-pyproject - добавить зависимость
 
                                                       
 **Документация:**                                                               

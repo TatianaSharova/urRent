@@ -10,10 +10,8 @@ from db.db import create_table, delete_tables
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await create_table()
-    print('start')
     yield
     # await delete_tables()
-    print('end')
 
 app = FastAPI(lifespan=lifespan)
 

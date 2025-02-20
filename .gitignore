@@ -133,3 +133,6 @@ dmypy.json
 
 # test db
 test_db.db
+
+# doc
+doc.txt

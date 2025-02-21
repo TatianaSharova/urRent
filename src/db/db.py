@@ -15,6 +15,10 @@ from models import Base
 class DatabaseHelper:
     '''Класс настроек движка бд.'''
     def __init__(self, url: str, echo: bool = False):
+        '''
+        Создает асинхронный движок, который отвечает
+        за подключение к базе данных, и асинхронные сессии.
+        '''
         self.engine = create_async_engine(
             url=url,
             echo=echo,
@@ -27,6 +31,10 @@ class DatabaseHelper:
         )
 
     def get_scoped_session(self):
+        '''
+        Создает scope-сессию — обертку, которая создает
+        одну сессию на текущую асинхронную задачу.
+        '''
         session = async_scoped_session(
             session_factory=self.session_factory,
             scopefunc=current_task,
@@ -34,11 +42,13 @@ class DatabaseHelper:
         return session
 
     async def session_dependency(self) -> AsyncGenerator[AsyncSession, None]:
+        '''Создает новую сессию при каждом запросе.'''
         async with self.session_factory() as session:
             yield session
             await session.close()
 
     async def scoped_session_dependency(self) -> AsyncGenerator[AsyncSession, None]:
+        '''Создает scope-сессию при каждом запросе.'''
         session = self.get_scoped_session()
         yield session
         await session.close()
@@ -59,9 +69,9 @@ async def delete_tables():
         await conn.run_sync(Base.metadata.drop_all)
 
 
-async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    async with db_helper.session_factory() as session:
-        try:
-            yield session
-        finally:
-            await session.close()
+# async def get_db() -> AsyncGenerator[AsyncSession, None]:     является session_dependency
+#     async with db_helper.session_factory() as session:
+#         try:
+#             yield session
+#         finally:
+#             await session.close()

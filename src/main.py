@@ -9,6 +9,7 @@ from db.db import create_table, delete_tables
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    '''Выполняется при запуске программы.'''
     await create_table()
     yield
     # await delete_tables()

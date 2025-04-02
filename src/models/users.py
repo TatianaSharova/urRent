@@ -3,6 +3,7 @@ from sqlalchemy import DateTime, ForeignKey, String, func
 
 from .base import Base
 
+
 class User(Base):
     '''Модель для пользователя.'''
 

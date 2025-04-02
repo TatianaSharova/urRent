@@ -1,7 +1,7 @@
 # **_UrRent_**
 Сервис для бронирования помещений.                                                              
 
-Стек: .                                                                          
+Стек: Python, FastAPI, SQLalchemy, aiosqlite, Pydantic                                                                         
                                            
 **Как запустить проект:**
 -----------

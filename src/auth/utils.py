@@ -1,3 +1,4 @@
+import bcrypt
 import jwt
 
 from .config import auth_settings
@@ -29,3 +30,16 @@ def decode_jwt(
         algorithm=[algorithm]
     )
     return decoded
+
+
+def hash_password(password: str) -> bytes:
+    '''Хеширует пароль.'''
+    salt = bcrypt.gensalt()
+    pwd_bytes: bytes = password.encode()
+    return bcrypt.hashpw(pwd_bytes, salt)
+
+
+def validate_password(password: str,
+                      hashed_password: bytes) -> bool:
+    '''Проверяет пароль на соответствие.'''
+    return bcrypt.checkpw(password.encode(), hashed_password)

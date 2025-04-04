@@ -5,6 +5,7 @@ from fastapi import FastAPI
 import uvicorn
 
 from db.db import create_table, delete_tables
+from auth.routers import auth_jwt_router
 
 
 @asynccontextmanager
@@ -17,7 +18,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-# app.include_router(user_router)
+app.include_router(auth_jwt_router)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)

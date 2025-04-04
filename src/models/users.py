@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import DateTime, ForeignKey, String, func
+from sqlalchemy import DateTime, String, func, Boolean
 
 from .base import Base
 
@@ -15,6 +15,7 @@ class User(Base):
                                        nullable=False)
     date_joined: Mapped[DateTime] = mapped_column(DateTime,
                                                   default=func.now())
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
     def __repr__(self) -> str:
         return self.username

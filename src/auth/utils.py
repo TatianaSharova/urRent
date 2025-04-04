@@ -1,5 +1,6 @@
 import bcrypt
 import jwt
+from datetime import datetime, timedelta
 
 from .config import auth_settings
 
@@ -7,9 +8,20 @@ from .config import auth_settings
 def encode_jwt(
        payload: dict,
        private_key: str = auth_settings.private_key_path.read_text(),
-       algorithm: str = auth_settings.algorithm
+       algorithm: str = auth_settings.algorithm,
+       expire_min: int = auth_settings.access_token_expire_min,
+       expire_timedelta: timedelta | None = None
 ):
     '''Зашифровывает jwt-токен.'''
+    to_encode = payload.copy()
+    now = datetime.now()
+    if expire_timedelta:
+        expire = now + expire_timedelta
+    else:
+        expire = now + timedelta(minutes=expire_min)
+
+    to_encode.update(exp=expire, iat=now)
+
     encoded = jwt.encode(
         payload,
         private_key,
@@ -27,7 +39,7 @@ def decode_jwt(
     decoded = jwt.decode(
         token,
         pub_key,
-        algorithm=[algorithm]
+        algorithms=[algorithm]
     )
     return decoded
 

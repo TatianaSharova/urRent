@@ -12,7 +12,7 @@ from auth import utils as auth_utils
 from .schemas import UserAuth, TokenInfo
 
 oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl="/jwt/login/",
+    tokenUrl="/api/v1/jwt/login/",
 )
 
 
@@ -126,7 +126,7 @@ def auth_user_check_self_info(
     payload: dict = Depends(get_current_token_payload),
     user: UserAuth = Depends(get_current_active_auth_user),
 ):
-    '''Получение инфы о юзере.'''
+    '''Получение информации о текущем юзере.'''
     iat = payload.get("iat")
     return {
         "username": user.username,

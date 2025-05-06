@@ -1,6 +1,6 @@
 import bcrypt
 import jwt
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from .config import auth_settings
 
@@ -14,7 +14,7 @@ def encode_jwt(
 ):
     '''Зашифровывает jwt-токен.'''
     to_encode = payload.copy()
-    now = datetime.now()
+    now = datetime.now(timezone.utc)
     if expire_timedelta:
         expire = now + expire_timedelta
     else:
@@ -23,7 +23,7 @@ def encode_jwt(
     to_encode.update(exp=expire, iat=now)
 
     encoded = jwt.encode(
-        payload,
+        to_encode,
         private_key,
         algorithm
     )

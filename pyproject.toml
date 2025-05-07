@@ -1,39 +1,28 @@
-[project]
-name = "urRent"
-version = "0.1.0"
-description = ""
-authors = [
-    {name = "Tatiana Sharova"}
-]
-packages = [{ include = "src" }]
-readme = "README.md"
-requires-python = ">=3.9"
-dependencies = [
-    "fastapi (>=0.115.8)",
-    "uvicorn (==0.34.0)",
-    "asyncpg (==0.30.0)",
-    "python-dotenv (==1.0.1)",
-    "pyjwt[crypto] (>=2.10.1,<3.0.0)",
-    "sqlalchemy[asyncio] (>=2.0.38,<3.0.0)",
-    "aiosqlite (>=0.21.0,<0.22.0)",
-    "pydantic-settings (>=2.7.1,<3.0.0)",
-    "bcrypt (>=4.3.0,<5.0.0)",
-    "python-multipart (>=0.0.20,<0.0.21)",
-    "pydantic[email] (>=2.11.2,<3.0.0)"
-]
+[tool.poetry]
+package-mode = false
 
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.12"
+uvicorn = {extras = ["standart"], version = "^0.34.2"}
+pydantic = {extras = ["email"], version = "^2.11.4"}
+pydantic-settings = "^2.9.1"
+bcrypt = "^4.3.0"
+pyjwt = {extras = ["crypto"], version = "^2.10.1"}
+python-dotenv = "^1.1.0"
+asyncpg = "^0.30.0"
+aiosqlite = "^0.21.0"
+python-multipart = "^0.0.20"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.40"}
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^7.1.1"
-isort = "^6.0.0"
+black = "^25.1.0"
+flake8 = "^7.2.0"
+isort = "^6.0.1"
 flake8-pyproject = "^1.2.3"
 
 [tool.isort]
-known_first_party = ["src"]
+known_first_party = ["auth"]
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 
 [tool.flake8]

@@ -5,7 +5,7 @@ from fastapi import FastAPI
 import uvicorn
 
 from config import settings
-from db.db import create_table, delete_tables  # noqa: F401
+from db.db_helper import create_table, delete_tables  # noqa: F401
 from auth.routers import auth_jwt_router
 
 

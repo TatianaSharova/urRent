@@ -1,6 +1,8 @@
 from datetime import timedelta
 
 from auth import utils as auth_utils
+
+
 from auth.config import auth_settings
 from auth.schemas import UserAuth
 
@@ -16,10 +18,10 @@ def create_jwt(
     expire_minutes: int = auth_settings.access_token_expire_min,
     expire_timedelta: timedelta | None = None,
 ) -> str:
-    '''
+    """
     Создание jwt-токена,
     в зависимости от token_type - access или refresh.
-    '''
+    """
     jwt_payload = {TOKEN_TYPE_FIELD: token_type}
     jwt_payload.update(token_data)
     return auth_utils.encode_jwt(
@@ -30,7 +32,7 @@ def create_jwt(
 
 
 def create_access_token(user: UserAuth) -> str:
-    '''Создание access-токена.'''
+    """Создание access-токена."""
     jwt_payload = {
         "sub": user.username,
         "username": user.username,
@@ -44,14 +46,10 @@ def create_access_token(user: UserAuth) -> str:
 
 
 def create_refresh_token(user: UserAuth) -> str:
-    '''Создание refresh-токена.'''
-    jwt_payload = {
-        "sub": user.username
-    }
+    """Создание refresh-токена."""
+    jwt_payload = {"sub": user.username}
     return create_jwt(
         token_type=REFRESH_TOKEN_TYPE,
         token_data=jwt_payload,
-        expire_timedelta=timedelta(
-            days=auth_settings.refresh_token_expire_days
-        ),
+        expire_timedelta=timedelta(days=auth_settings.refresh_token_expire_days),
     )

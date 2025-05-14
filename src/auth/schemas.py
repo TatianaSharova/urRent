@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, EmailStr, ConfigDict
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class UserAuth(BaseModel):

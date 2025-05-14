@@ -9,19 +9,35 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).parent.parent
 
-DB_PATH = BASE_DIR / 'db.sqlite3'
+DB_PATH = BASE_DIR / "db.sqlite3"
+
+
+class RunAppConfig(BaseModel):
+    """Класс настроек для запуска приложения."""
+
+    host: str = "0.0.0.0"
+    port: int = 8000
+    reload: bool = True
+
+
+class ApiPrefix(BaseModel):
+    """Класс настроек для префикса api."""
+
+    v1: str = "/api/v1"
 
 
 class DbSettings(BaseModel):
-    '''Класс настроек для подключения к бд.'''
+    """Класс настроек для подключения к бд."""
+
     url: str = f'{os.getenv("DB_URL")}:///{DB_PATH}'
     echo: bool = True  # для отладки
 
 
 class Settings(BaseSettings):
-    '''Класс настроек проекта.'''
-    api_v1_prefix: str = '/api/v1'
+    """Класс настроек проекта."""
 
+    run: RunAppConfig = RunAppConfig()
+    api_prefix: ApiPrefix = ApiPrefix()
     db: DbSettings = DbSettings()
 
 

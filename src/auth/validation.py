@@ -34,10 +34,10 @@ users_db: dict[str, UserAuth] = {
 def get_current_token_payload(
     token: str = Depends(oauth2_scheme),
 ) -> dict:
-    '''
+    """
     Проверяем токен пользователя
     и получаем payload из токена.
-    .'''
+    ."""
     try:
         payload = auth_utils.decode_jwt(
             token=token,
@@ -54,27 +54,28 @@ def validate_token_type(
     payload: dict,
     token_type: str,
 ) -> bool:
-    '''
+    """
     Проверяем тип токена, передаваемый в payload.
 
     Если тип токена не совпадает с ожидаемым,
     то выбрасываем ошибку.
-    '''
+    """
     current_token_type = payload.get(TOKEN_TYPE_FIELD)
     if current_token_type == token_type:
         return True
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail=(f"invalid token type {current_token_type!r} "
-                f"expected {token_type!r}"),
+        detail=(
+            f"invalid token type {current_token_type!r} " f"expected {token_type!r}"
+        ),
     )
 
 
 def get_user_by_token_sub(payload: dict) -> UserAuth:
-    '''
+    """
     Получаем аутентифицированного юзера
     по его username (sub) из payload токена.
-    '''
+    """
     username: str | None = payload.get("sub")
     if user := users_db.get(username):
         return user
@@ -85,7 +86,8 @@ def get_user_by_token_sub(payload: dict) -> UserAuth:
 
 
 class UserGetterFromToken:
-    '''Класс получения юзера по токену.'''
+    """Класс получения юзера по токену."""
+
     def __init__(self, token_type: str):
         self.token_type = token_type
 
@@ -104,7 +106,7 @@ get_current_auth_user_for_refresh = UserGetterFromToken(REFRESH_TOKEN_TYPE)
 def get_current_active_auth_user(
     user: UserAuth = Depends(get_current_auth_user),
 ):
-    '''Проверка активности юзера.'''
+    """Проверка активности юзера."""
     if user.active:
         return user
     raise HTTPException(
@@ -117,10 +119,10 @@ def validate_auth_user(
     username: str = Form(),
     password: str = Form(),
 ):
-    '''
+    """
     Проверка существования юзера в бд,
     и его вводимых данных(пароля).
-    '''
+    """
     unauthed_exc = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="invalid username or password",

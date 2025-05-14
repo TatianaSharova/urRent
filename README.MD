@@ -18,6 +18,23 @@ poetry env activate
 source .venv/Scripts/activate
 ```
 
+**Аутентификация:**  
+-----------
+Для аутентификации в проекте используются JWT-токены. Для обеспечения безопасности и работы с JWT-токенами в проекте используются RSA-ключи. Приватный ключ будет использоваться для подписи JWT-токенов, а публичный — для их верификации. Для их генерации выполните следующие шаги:
+
+1. В директории src/auth/ создайте папку certs/:
+```bash
+mkdir src/auth/certs
+```
+2. Сгенерируйте RSA-ключи с помощью openssl.
+```bash
+# Generate an RSA private key, of size 2048
+openssl genrsa -out jwt-private.pem 2048
+
+# Extract the public key from the key pair, which can be used in a certificate
+openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
+```
+
 **Документация:**  
 -----------
 Документацию к API после запуска проекта можно посмотреть по адресам:

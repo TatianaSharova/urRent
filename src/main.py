@@ -5,16 +5,15 @@ from fastapi import FastAPI
 import uvicorn
 
 from config import settings
-from db.db_helper import create_table, delete_tables  # noqa: F401
 from auth.routers import auth_jwt_router
+from db import db_helper
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Выполняется при запуске программы."""
-    await create_table()
     yield
-    # await delete_tables()
+    await db_helper.dispose()
 
 
 app = FastAPI(lifespan=lifespan)

@@ -10,7 +10,6 @@ from sqlalchemy.ext.asyncio import (
 )
 
 from config import settings
-from models import Base
 
 
 class DatabaseHelper:
@@ -62,19 +61,6 @@ db_helper = DatabaseHelper(
     url=settings.db.url,
     echo=settings.db.echo,
 )
-
-
-async def create_table():
-    """Создает таблицы в бд."""
-    async with db_helper.engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-
-
-async def delete_tables():
-    """Удаляет таблицы в бд."""
-    async with db_helper.engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-
 
 #  является session_dependency
 # async def get_db() -> AsyncGenerator[AsyncSession, None]:

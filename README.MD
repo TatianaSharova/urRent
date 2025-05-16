@@ -36,7 +36,7 @@ openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
 ```
 
 **Работа с бд:** 
-
+-----------
 alembic
 urRent/src
 ```bash

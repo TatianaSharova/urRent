@@ -35,6 +35,16 @@ openssl genrsa -out jwt-private.pem 2048
 openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
 ```
 
+alembic
+urRent/src
+```bash
+alembic revision --autogenerate -m "create ... table"
+```
+применить миграцию
+```bash
+alembic upgrade head
+```
+
 **Документация:**  
 -----------
 Документацию к API после запуска проекта можно посмотреть по адресам:
